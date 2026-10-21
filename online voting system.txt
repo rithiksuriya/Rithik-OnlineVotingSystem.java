@@ -1,0 +1,235 @@
+package Rithik;
+import java.awt.*;
+import java.awt.event.*;
+
+public class OnlineVotingSystem extends Frame implements ActionListener {
+    // Variables for login
+    TextField nameField, passwordField;
+    Label loginMessage;
+
+    // Variables for voting
+    CheckboxGroup candidates;
+    Button voteButton, resultsButton;
+    int votesForDMK = 0, votesForADMK = 0, votesForTVK = 0, votesForNTK = 0, votesForBJP = 0;
+
+    // Candidate names
+    String candidateAName = "DMK";
+    String candidateBName = "ADMK";
+    String candidateCName = "TVK";
+    String candidateDName = "NTK";
+    String candidateEName = "BJP";
+
+    // Constructor to setup login screen
+    public OnlineVotingSystem() {
+        setLayout(new FlowLayout());
+
+        Label nameLabel = new Label("Username:");
+        nameLabel.setFont(new Font("Serif", Font.BOLD, 32));
+        nameField = new TextField(20);
+        nameField.setFont(new Font("Serif", Font.PLAIN, 32));
+
+        Label passwordLabel = new Label("Password:");
+        passwordLabel.setFont(new Font("Serif", Font.BOLD, 32));
+        passwordField = new TextField(20);
+        passwordField.setFont(new Font("Serif", Font.PLAIN, 32));
+        passwordField.setEchoChar('*');
+        loginMessage = new Label("");
+
+        Button loginButton = new Button("Login");
+        loginButton.setFont(new Font("Serif", Font.BOLD, 32));
+        loginButton.addActionListener(this);
+
+        // Arrange components in separate lines
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        add(nameLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        add(nameField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        add(passwordLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        add(passwordField, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.anchor = GridBagConstraints.SOUTHEAST;
+        add(loginButton, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        add(loginMessage, gbc);
+
+        setTitle("Online Voting System - Login");
+        setBackground(Color.WHITE); // Set background to white
+        setSize(600, 400);
+        setVisible(true);
+    }
+
+    // Action listener for buttons
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+
+        if (command.equals("Login")) {
+            String username = nameField.getText();
+            String password = passwordField.getText();
+
+            if (username.equals("admin") && password.equals("123")) {
+                // Clear the login screen
+                removeAll();
+                setupVotingPage();
+            } else {
+                loginMessage.setText("Invalid login. Try again.");
+            }
+        } else if (command.equals("Vote")) {
+            Checkbox selectedCandidate = candidates.getSelectedCheckbox();
+
+            if (selectedCandidate != null) {
+                if (selectedCandidate.getLabel().equals(candidateAName)) {
+                    votesForDMK++;
+                } else if (selectedCandidate.getLabel().equals(candidateBName)) {
+                    votesForADMK++;
+                } else if (selectedCandidate.getLabel().equals(candidateCName)) {
+                    votesForTVK++;
+                } else if (selectedCandidate.getLabel().equals(candidateDName)) {
+                    votesForNTK++;
+                } else if (selectedCandidate.getLabel().equals(candidateEName)) {
+                    votesForBJP++;
+                }
+                showVotingSuccessful();
+            } else {
+                loginMessage.setText("Please select a candidate.");
+            }
+        } else if (command.equals("View Results")) {
+            showResults();
+        }
+    }
+
+    // Setup the voting screen
+    private void setupVotingPage() {
+        setLayout(new BorderLayout());
+
+        candidates = new CheckboxGroup();
+        Panel candidatesPanel = new Panel(new GridLayout(5, 1));
+        candidatesPanel.setBackground(Color.WHITE); // Set background to white
+
+        // Use bold and larger font size for candidates
+        Font candidateFont = new Font("Serif", Font.BOLD, 28);
+
+        Checkbox candidateA = new Checkbox(candidateAName, candidates, false);
+        candidateA.setFont(candidateFont);
+        candidatesPanel.add(candidateA);
+
+        Checkbox candidateB = new Checkbox(candidateBName, candidates, false);
+        candidateB.setFont(candidateFont);
+        candidatesPanel.add(candidateB);
+
+        Checkbox candidateC = new Checkbox(candidateCName, candidates, false);
+        candidateC.setFont(candidateFont);
+        candidatesPanel.add(candidateC);
+
+        Checkbox candidateD = new Checkbox(candidateDName, candidates, false);
+        candidateD.setFont(candidateFont);
+        candidatesPanel.add(candidateD);
+
+        Checkbox candidateE = new Checkbox(candidateEName, candidates, false);
+        candidateE.setFont(candidateFont);
+        candidatesPanel.add(candidateE);
+
+        voteButton = new Button("Vote");
+        voteButton.setFont(new Font("Serif", Font.BOLD, 36));
+        voteButton.addActionListener(this);
+
+        add(candidatesPanel, BorderLayout.CENTER);
+        add(voteButton, BorderLayout.SOUTH);
+
+        setTitle("Online Voting System - Vote for Your Candidate");
+        setBackground(Color.WHITE); // Set background to white
+        setSize(600, 600);
+        setVisible(true);
+    }
+
+    // Show voting successful screen
+    private void showVotingSuccessful() {
+        removeAll();
+        setLayout(new BorderLayout());
+
+        Label successMessage = new Label("THANKS FOR VOTING!", Label.CENTER);
+        successMessage.setFont(new Font("Serif", Font.BOLD, 48));
+        successMessage.setBackground(Color.WHITE); // Set background to white
+
+        resultsButton = new Button("View Results");
+        resultsButton.setFont(new Font("Serif", Font.BOLD, 36));
+        resultsButton.addActionListener(this);
+
+        add(successMessage, BorderLayout.CENTER);
+        add(resultsButton, BorderLayout.SOUTH);
+
+        setTitle("Online Voting System - Voting Successful");
+        setBackground(Color.WHITE); // Set background to white
+        setSize(600, 400);
+        setVisible(true);
+    }
+
+    // Show results screen
+    private void showResults() {
+        removeAll();
+        setLayout(new BorderLayout());
+
+        Label resultsLabel = new Label("Results:", Label.CENTER);
+        resultsLabel.setFont(new Font("Serif", Font.BOLD, 36));
+        resultsLabel.setBackground(Color.WHITE); // Set background to white
+        add(resultsLabel, BorderLayout.NORTH);
+
+        Panel resultsPanel = new Panel(new GridLayout(5, 1));
+        resultsPanel.setBackground(Color.WHITE); // Set background to white
+
+        Font resultsFont = new Font("Serif", Font.BOLD, 36);
+
+        Label dmkLabel = new Label(candidateAName + " = " + votesForDMK);
+        dmkLabel.setFont(resultsFont);
+        resultsPanel.add(dmkLabel);
+
+        Label admkLabel = new Label(candidateBName + " = " + votesForADMK);
+        admkLabel.setFont(resultsFont);
+        resultsPanel.add(admkLabel);
+
+        Label tvkLabel = new Label(candidateCName + " = " + votesForTVK);
+        tvkLabel.setFont(resultsFont);
+        resultsPanel.add(tvkLabel);
+
+        Label ntkLabel = new Label(candidateDName + " = " + votesForNTK);
+        ntkLabel.setFont(resultsFont);
+        resultsPanel.add(ntkLabel);
+
+        Label bjpLabel = new Label(candidateEName + " = " + votesForBJP);
+        bjpLabel.setFont(resultsFont);
+        resultsPanel.add(bjpLabel);
+
+        add(resultsPanel, BorderLayout.CENTER);
+
+        Button exitButton = new Button("Exit");
+        exitButton.setFont(new Font("Serif", Font.BOLD, 36));
+        exitButton.addActionListener(e -> System.exit(0));
+        add(exitButton, BorderLayout.SOUTH);
+
+        setTitle("Online Voting System - Results");
+        setBackground(Color.WHITE); // Set background to white
+        setSize(600, 400);
+        setVisible(true);
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        new OnlineVotingSystem();
+    }
+}
