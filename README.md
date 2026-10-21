@@ -1,74 +1,87 @@
-# Online Voting System
+<div align="center">
 
-A Java-based GUI application developed using Java AWT to demonstrate a basic online voting workflow, including login authentication, candidate selection, vote counting, and result display.
+# 🗳️ Online Voting System
 
-## Features
+**A Java AWT desktop app that demonstrates a basic voting workflow.**
+Login → Vote → Confirm → Results
+
+![Java](https://img.shields.io/badge/Java-AWT-007396?style=for-the-badge&logo=openjdk&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Prototype-orange?style=for-the-badge)
+
+</div>
+
+---
+
+## ⚡ Quick Start
+
+```bash
+# compile
+javac Rithik/OnlineVotingSystem.java
+
+# run
+java Rithik.OnlineVotingSystem
+```
+
+Run these from the directory that contains the `Rithik` folder. A JDK must be installed.
+
+**Demo login:** `admin` / `123`
+
+> ⚠️ These are hardcoded demo credentials, not secure authentication.
+
+---
+
+## ✨ What It Does
 
 - Login screen with username and password
-- Candidate selection using radio-style checkboxes
-- Vote counting for five candidates
-- Voting confirmation screen
-- Results display
-- Simple graphical user interface
+- Pick one candidate using radio-style checkboxes
+- Counts votes for five candidates
+- Shows a voting confirmation screen
+- Displays the results
 
-## Technologies Used
+## 🧑‍💼 Candidates
+
+`DMK` · `ADMK` · `TVK` · `NTK` · `BJP`
+
+## 🛠️ Built With
 
 - Java
 - Java AWT
-- Java Event Handling
-- Object-Oriented Programming (OOP)
+- Java event handling
+- Object-oriented programming (OOP)
 
-## Candidates
+---
 
-- DMK
-- ADMK
-- TVK
-- NTK
-- BJP
+<details>
+<summary><b>Known limitations</b></summary>
 
-## How to Run
+<br>
 
-1. Install the Java Development Kit (JDK).
-2. Clone or download this repository.
-3. Open a terminal in the directory containing the `Rithik` folder.
-4. Compile the program:
+- Votes are kept in memory and reset when the app restarts.
+- The same user can vote repeatedly.
+- No database and no encryption.
+- This is a desktop GUI prototype, not a deployed web-based election system.
 
-   ```bash
-   javac Rithik/OnlineVotingSystem.java
-   ```
+</details>
 
-5. Run the application:
+<details>
+<summary><b>Planned improvements</b></summary>
 
-   ```bash
-   java Rithik.OnlineVotingSystem
-   ```
+<br>
 
-## Login for Demonstration
+- [ ] MySQL database integration
+- [ ] Secure user authentication
+- [ ] Duplicate vote prevention
+- [ ] Improved interface design
+- [ ] Persistent storage of results
 
-- Username: `admin`
-- Password: `123`
+</details>
 
-These are hardcoded demonstration credentials, not secure production authentication.
+---
 
-## Limitations
+<div align="center">
 
-- Vote counts are stored in memory and reset when the application restarts.
-- The current implementation does not prevent the same user from voting repeatedly.
-- It does not currently use a database or implement encryption.
-- It is a desktop GUI prototype, not a deployed web-based election system.
-
-## Future Enhancements
-
-- Database integration using MySQL
-- Secure user authentication
-- Prevention of duplicate voting
-- Improved interface design
-- Persistent storage of voting results
-
-## Author
-
-Rithik M
-
+**Rithik M**
 Electronics and Communication Engineering
-
 M. Kumarasamy College of Engineering
+
+</div>
